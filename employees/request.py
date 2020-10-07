@@ -4,16 +4,16 @@ EMPLOYEES = [
         "name": "Miles Obrien",
         "location": "Deep Space 9",
         "manager": False,
-        "full time": True,
-        "hourly rate": 95
+        "full_time": True,
+        "hourly_rate": 95
     },
     {
         "id": 2,
         "name": "Tom Paris",
         "location": "Delta Quadrant",
         "manager": False,
-        "full time": True,
-        "hourly rate": 15
+        "full_time": True,
+        "hourly_rate": 15
     }
 ]
 
