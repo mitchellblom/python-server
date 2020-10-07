@@ -1,5 +1,5 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
-from animals import get_all_animals
+from animals import get_all_animals, get_single_animal
 
 # Here's a class. It inherits from another class.
 class HandleRequests(BaseHTTPRequestHandler):
@@ -20,11 +20,16 @@ class HandleRequests(BaseHTTPRequestHandler):
         # Your new console.log() that outputs to the terminal
         print(self.path)
 
+        # Parse the URL and capture the tuple that is returned
+        (resource, id) = self.parse_url(self.path)
+
         # It's an if..else statement
-        if self.path == "/animals":
-            response = get_all_animals()
-        else:
-            response = []
+        if resource == "animals":
+            if id is not None:
+                response = f"{get_single_animal(id)}"
+
+            else:
+                response = f"{get_all_animals()}"
 
         # This weird code sends a response back to the client
         self.wfile.write(f"{response}".encode())
