@@ -29,3 +29,15 @@ def create_location(location):
     location["id"] = new_id
     LOCATIONS.append(location)
     return location
+
+def delete_location(id):
+    for index, location in enumerate(LOCATIONS):
+        if location["id"] == id:
+            LOCATIONS.pop(index)
+            break
+
+def update_location(id, new_location):
+    for index, location in enumerate(LOCATIONS):
+        if location["id"] == id:
+            LOCATIONS[index] = new_location
+            break
