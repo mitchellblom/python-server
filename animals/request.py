@@ -1,28 +1,9 @@
+from models.animal import Animal
+
 ANIMALS = [
-    {
-        "id": 1,
-        "name": "Snickers",
-        "species": "Dog",
-        "locationId": 1,
-        "customerId": 4,
-        "status": "Ready for discharge"
-    },
-    {
-        "id": 2,
-        "name": "Gypsy",
-        "species": "Dog",
-        "locationId": 1,
-        "customerId": 2,
-        "status": "Ready for discharge"
-    },
-    {
-        "id": 3,
-        "name": "Blue",
-        "species": "Cat",
-        "locationId": 2,
-        "customerId": 1,
-        "status": "Ready for discharge"
-    }
+    Animal(1, "Snickers", "Dog", 1, 4, "Ready for discharge"),
+    Animal(2, "Gypsy", "Dog", 1, 2, "Ready for discharge"),
+    Animal(3, "Blue", "Cat", 2, 4, "Ready for discharge"),
 ]
 
 def get_all_animals():
@@ -38,25 +19,26 @@ def get_single_animal(id):
     for animal in ANIMALS:
         # Dictionaries in Python use [] notation to find a key
         # instead of the dot notation that JavaScript used.
-        if animal["id"] == id:
+        if animal.id == id:
             requested_animal = animal
 
     return requested_animal
 
 def create_animal(animal):
     # Get the id value of the last animal in the list
-    max_id = ANIMALS[-1]["id"]
-
+    last_animal = ANIMALS[-1]
+    
     # Add 1 to whatever that number is
-    new_id = max_id + 1
+    new_id = last_animal.id + 1
 
     # Add an `id` property to the animal dictionary
     animal["id"] = new_id
 
     # Add the animal dictionary to the list
-    ANIMALS.append(animal)
+    new_animal = Animal(animal['id'], animal['name'], animal['species'], animal['location_id'], animal['customer_id'], animal['status'])
+    ANIMALS.append(new_animal)
 
-    # Return the dictionary with `id` property added
+    # Return the dictionary with `id` property added/
     return animal
 
 def delete_animal(id):
@@ -65,11 +47,11 @@ def delete_animal(id):
             ANIMALS.pop(index)
             break
 
-def update_animal(id, new_animal):
+def update_animal(id, updated_animal):
     # Iterate the ANIMALS list, but use enumerate() so that
     # you can access the index value of each item.
     for index, animal in enumerate(ANIMALS):
-        if animal["id"] == id:
+        if animal.id == id:
             # Found the animal. Update the value.
-            ANIMALS[index] = new_animal
+            ANIMALS[index] = Animal(updated_animal['id'], updated_animal['name'], updated_animal['species'], updated_animal['location_id'], updated_animal['customer_id'], updated_animal['status'])
             break
