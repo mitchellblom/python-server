@@ -1,9 +1,9 @@
 from models.animal import Animal
 
 ANIMALS = [
-    Animal(1, "Snickers", "Dog", 1, 4, "Ready for discharge"),
-    Animal(2, "Gypsy", "Dog", 1, 2, "Ready for discharge"),
-    Animal(3, "Blue", "Cat", 2, 4, "Ready for discharge"),
+    Animal(1, "Snickers", "Doing alright", "Dog", 1, 2),
+    Animal(2, "Gypsy", "In foster care", "Horse", 1, 2),
+    Animal(3, "Blue", "Sleeping as always", "Cat", 2, 2),
 ]
 
 def get_all_animals():
@@ -35,7 +35,7 @@ def create_animal(animal):
     animal["id"] = new_id
 
     # Add the animal dictionary to the list
-    new_animal = Animal(animal['id'], animal['name'], animal['species'], animal['location_id'], animal['customer_id'], animal['status'])
+    new_animal = Animal(animal['id'], animal['name'], animal['status'], animal['breed'], animal['customer_id'], animal['location_id'])
     ANIMALS.append(new_animal)
 
     # Return the dictionary with `id` property added/
@@ -53,5 +53,5 @@ def update_animal(id, updated_animal):
     for index, animal in enumerate(ANIMALS):
         if animal.id == id:
             # Found the animal. Update the value.
-            ANIMALS[index] = Animal(updated_animal['id'], updated_animal['name'], updated_animal['species'], updated_animal['location_id'], updated_animal['customer_id'], updated_animal['status'])
+            ANIMALS[index] = Animal(updated_animal['id'], updated_animal['name'], updated_animal['status'], updated_animal['customer_id'], updated_animal['location_id'])
             break

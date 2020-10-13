@@ -1,20 +1,8 @@
+from models.employee import Employee
+
 EMPLOYEES = [
-    {
-        "id": 1,
-        "name": "Miles Obrien",
-        "location": "Deep Space 9",
-        "manager": False,
-        "full_time": True,
-        "hourly_rate": 95
-    },
-    {
-        "id": 2,
-        "name": "Tom Paris",
-        "location": "Delta Quadrant",
-        "manager": False,
-        "full_time": True,
-        "hourly_rate": 15
-    }
+    Employee(1, "Miles Obrien", "9 Deep Space", 2),
+    Employee(1, "Tom Paris", "44 Delta Quadrant", 1),
 ]
 
 def get_all_employees():
@@ -29,12 +17,15 @@ def get_single_employee(id):
 
     return requested_employee
 
+
 def create_employee(employee):
-    max_id = EMPLOYEES[-1]["id"]
-    new_id = max_id + 1
+    last_employee = EMPLOYEES[-1]
+    new_id = last_employee.id + 1
     employee["id"] = new_id
-    EMPLOYEES.append(employee)
+    new_employee = Employee(employee['id'], employee['name'], employee['address'], employee['location_id'])
+    EMPLOYEES.append(new_employee)
     return employee
+
 
 def delete_employee(id):
     for index, employee in enumerate(EMPLOYEES):
@@ -42,8 +33,9 @@ def delete_employee(id):
             EMPLOYEES.pop(index)
             break
 
-def update_employee(id, new_employee):
+
+def update_employee(id, updated_employee):
     for index, employee in enumerate(EMPLOYEES):
-        if employee["id"] == id:
-            EMPLOYEES[index] = new_employee
+        if employee.id == id:
+            EMPLOYEES[index] = Employee(updated_employee['id'], updated_employee['name'], updated_employee['address'], updated_employee['location_id'])
             break

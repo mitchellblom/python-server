@@ -1,9 +1,9 @@
 from models.customer import Customer
 
 CUSTOMERS = [
-    Customer(1, "Hannah Hall", "NSS", 1),
-    Customer(2, "Brian Neal", "NSS Day", 1),
-    Customer(3, "Mitchell Blom", "NSS Evening", 2),
+    Customer(1, "Hannah Hall", "123 NSS", "foo@bar.com", "willbehashedpw"),
+    Customer(2, "Brian Neal", "123 NSS Day", "foo2@bar.com", "willbehashedpw"),
+    Customer(3, "Mitchell Blom", "123 NSS Evening", "foo3@bar.com", "willbehashedpw"),
 ]
 
 def get_all_customers():
@@ -23,7 +23,7 @@ def create_customer(customer):
     last_customer = CUSTOMERS[-1]
     new_id =  last_customer.id + 1
     customer["id"] = new_id
-    new_customer = Customer(customer['id'], customer['name'], customer['business'], customer['locationId'])
+    new_customer = Customer(customer['id'], customer['name'], customer['address'], customer['email'], customer['password'])
     CUSTOMERS.append(new_customer)
     return customer
 
@@ -35,8 +35,8 @@ def delete_customer(id):
             break
 
 
-def update_customer(id, new_customer):
+def update_customer(id, updated_customer):
     for index, customer in enumerate(CUSTOMERS):
-        if customer["id"] == id:
-            CUSTOMERS[index] = new_customer
+        if customer.id == id:
+            CUSTOMERS[index] = Customer(updated_customer['id'], updated_customer['name'], updated_customer['address'], updated_customer['email'], updated_customer['password'])
             break
