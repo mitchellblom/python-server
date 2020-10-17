@@ -1,21 +1,51 @@
+import sqlite3
+import json
 from models.employee import Employee
 
-EMPLOYEES = [
-    Employee(1, "Miles Obrien", "9 Deep Space", 2),
-    Employee(1, "Tom Paris", "44 Delta Quadrant", 1),
-]
 
 def get_all_employees():
-    return EMPLOYEES
+    with sqlite3.connect("./kennel.db") as conn:
+
+        conn.row_factory = sqlite3.Row
+        db_cursor = conn.cursor()
+
+        db_cursor.execute("""
+        SELECT
+            e.id,
+            e.name,
+            e.address
+        FROM employee e
+        """)
+
+        employees = []
+        dataset = db_cursor.fetchall()
+
+        for row in dataset:
+            employee = Employee(row['id'], row['name'], row['address'])
+            employees.append(employee.__dict__)
+
+    return json.dumps(employees)
+
 
 def get_single_employee(id):
-    requested_employee = None
+    with sqlite3.connect("./kennel.db") as conn:
+        conn.row_factory = sqlite3.Row
+        db_cursor = conn.cursor()
 
-    for employee in EMPLOYEES:
-        if employee["id"] == id:
-            requested_employee = employee
+        db_cursor.execute("""
+        SELECT
+            e.id,
+            e.name,
+            e.address
+        FROM employee e
+        WHERE e.id = ?
+        """, ( id, ))
 
-    return requested_employee
+        data = db_cursor.fetchone()
+
+        employee = Employee(data['id'], data['name'], data['address'])
+
+        return json.dumps(employee.__dict__)
 
 
 def create_employee(employee):

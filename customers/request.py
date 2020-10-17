@@ -2,11 +2,6 @@ import sqlite3
 import json
 from models.customer import Customer
 
-CUSTOMERS = [
-    Customer(1, "Hannah Hall", "123 NSS", "foo@bar.com", "willbehashedpw"),
-    Customer(2, "Brian Neal", "123 NSS Day", "foo2@bar.com", "willbehashedpw"),
-    Customer(3, "Mitchell Blom", "123 NSS Evening", "foo3@bar.com", "willbehashedpw"),
-]
 
 def get_all_customers():
     with sqlite3.connect("./kennel.db") as conn:
@@ -53,10 +48,10 @@ def get_single_customer(id):
 
         data = db_cursor.fetchone()
 
-        animal = Customer(data['id'], data['name'], data['address'], data['email'],
+        customer = Customer(data['id'], data['name'], data['address'], data['email'],
                         data['password'])
 
-        return json.dumps(animal.__dict__)
+        return json.dumps(customer.__dict__)
 
 
 def create_customer(customer):
