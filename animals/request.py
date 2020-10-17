@@ -112,7 +112,7 @@ def update_animal(id, new_animal):
     with sqlite3.connect("./kennel.db") as conn:
         db_cursor = conn.cursor()
 
-        db_cursor.execute("""
+        db_cursor.execute(f"""
         UPDATE Animal
             SET
                 name = ?,
@@ -120,10 +120,10 @@ def update_animal(id, new_animal):
                 breed = ?,
                 customer_id = ?,
                 location_id = ?
-        WHERE id = ?
+        WHERE id = {id}
         """, (new_animal['name'], new_animal['breed'],
               new_animal['status'], new_animal['location_id'],
-              new_animal['customer_id'], id, ))
+              new_animal['customer_id']))
 
         # Were any rows affected?
         # Did the client send an `id` that exists?
