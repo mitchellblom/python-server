@@ -1,3 +1,4 @@
 .vscode/
 kennel.sql
 kennel.db
+*__pycache__/
